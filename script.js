@@ -5,7 +5,7 @@ submitBtn.addEventListener("click", async ()=>{
         let data = await getCountryData(countryName);
         createCountryInfo(data);
         let neighbours = await getNeighbours(data);
-        createNeighbours(neighbours);
+        creteNeighbours(neighbours);
 
     }else{
         alert("Please enter a country name");
@@ -63,21 +63,25 @@ async function getNeighbours(countryData){
     return neighbours;
 }
 
+function creteNeighbours(neighbours){
+    let section = document.getElementById("bordering-countries");
+    section.innerHTML = "";
+    let h1 = document.createElement("h1");
+    h1.innerText = `Bordering Countries`;
+    section.appendChild(h1);
+    let ul = document.createElement("ul");
+    ul.classList.add("list");
+    for(let neighbour in neighbours){
+        let neighbourLi = document.createElement("li");
+        neighbourLi.classList.add("list-item");
+        neighbourLi.innerText = neighbours[neighbour].name;
+        let img = document.createElement("img");
+        img.src = neighbours[neighbour].flag;
+        neighbourLi.appendChild(img);
+        ul.appendChild(neighbourLi);
+    }
+    section.appendChild(ul);
 
 
-function creteNeighbours(){
-let sectionNeighbours = document.getElementById("bordering-countries");
-sectionNeighbours.innerHTML = "";
-let h2 = document.createElement("h2");
-h2.innerText = "Bordering Countries";
-let ul = document.createElement("ul");
-for(let neighbour in neighbours){
-    let li = document.createElement("li");
-    let img = document.createElement("img");
-    img.src = neighbours[neighbour].flag;
-    li.innerText = neighbours[neighbour].name;
-    li.appendChild(img);
-    ul.appendChild(li);
-}
 
 }
